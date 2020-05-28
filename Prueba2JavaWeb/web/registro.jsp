@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 28-may-2020, 18:05:18
+    Document   : registro
+    Created on : 28-may-2020, 18:52:17
     Author     : TheGixe
 --%>
 
@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Inicio</title>
+        <title>Registro</title>
     </head>
     <body><center>
-        <h1>Inicio de sesion</h1>
+        <h1>Registro de usuario</h1>
         <form action="ControlUsuario" method="post">
             
                 <table style="border: 1; ">
@@ -21,14 +21,22 @@
                         <td><input type="text" name="usuario" /></td>
                     </tr>
                     <tr>
+                        <td>Nombre</td>
+                        <td><input type="text" name="nombre" /></td>
+                    </tr>
+                    <tr>
+                        <td>Apellido</td>
+                        <td><input type="text" name="apellido" /></td>
+                    </tr>
+                    <tr>
                         <td>Password</td>
                         <td><input type="password" name="password"/></td>
                     </tr>
                     <tr>
-                        <td><a href="registro.jsp">Registrar</a></td>
-                        <td><input type="submit" value="Ingresar"/></td>
-                        <input type="hidden" name="accion" value="4"/>
+                        <td><a href="index.jsp">Volver</a></td>
+                        <td><input type="submit" value="Registrar"/></td>
                     </tr>
+                    <input type="hidden" name="accion" value="1"/>
                 </table>
            <% if(request.getParameter("mensaje")!=null){%>
         <%=request.getParameter("mensaje") %>
