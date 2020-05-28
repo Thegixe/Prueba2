@@ -4,6 +4,7 @@
     Author     : TheGixe
 --%>
 
+<%@page import="modelos.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <% if(session.getAttribute("usuario")!=null){ 
+        Usuario u =(Usuario) session.getAttribute("usuario");%>
     <body>
-        <h1>Hello World!</h1>
+    <center>
+        <h1>Bienvenido <%= u.getNombre()+" "+u.getApellido() %></h1>
+        
+        
+    </center>
+        
+        
+        
     </body>
+    <% }else{
+    response.sendRedirect("index.jsp?mensaje=acceso denegado");
+    }%>
 </html>
