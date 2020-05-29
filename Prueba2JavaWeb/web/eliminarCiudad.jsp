@@ -11,10 +11,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Modificar Ciudad</title>
+        <title>Eliminar Ciudad</title>
     </head>
     <body> <center>
-        <h1>Cambie los datos a modificar</h1>
+        <h1>Eliminar datos</h1>
         <form action="ControlCiudad" method="post">
             <% String idCiudad = request.getParameter("idCiudad");
                Ciudad c = new Ciudad().obtenerCiudad(idCiudad);
