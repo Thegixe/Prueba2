@@ -85,7 +85,7 @@ public class Ciudad {
     
     public String modificar() throws SQLException{
         if(validarCiudad()){
-            String sentencia = "update ciudades set nombre = '"+nombre+"',"
+            String sentencia = "update ciudades set nombre = '"+nombre+"'"
                     + "where id_ciudad = '"+idCiudad+"'";
         if(conexion.ejecutarSQL(sentencia)==1){
             return "Ciudad modificada";
@@ -94,6 +94,19 @@ public class Ciudad {
         }
         }else{
             return "La Ciudad no existe";
+        }
+    }
+    
+     public String eliminar() throws SQLException{
+        if(validarCiudad()){
+            String sentencia = "delete from ciudades where id_ciudad = '"+idCiudad+"'";
+        if(conexion.ejecutarSQL(sentencia)==1){
+            return "Ciudad eliminada";
+        }else{
+            return "No se pudo eliminar la Ciudad";
+        }
+        }else{
+            return "la Ciudad no existe";
         }
     }
     

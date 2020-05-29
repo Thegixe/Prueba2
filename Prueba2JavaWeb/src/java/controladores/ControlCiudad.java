@@ -40,7 +40,7 @@ public class ControlCiudad extends HttpServlet {
             break;
             case "2": modificar(request,response);
             break;
-            case "3": //eliminar(request,response);
+            case "3": eliminar(request,response);
             break;
         }
         }
@@ -69,6 +69,17 @@ public class ControlCiudad extends HttpServlet {
             String nombre = request.getParameter("nombre").trim();
             Ciudad c = new Ciudad(idMarca,nombre);
             response.sendRedirect("pagCiudad.jsp?mensaje="+c.modificar());
+         } catch (Exception e) {
+                response.sendRedirect("pagCiudad.jsp?mensaje="+e.getMessage());
+            }
+    }
+    
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            String idCiudad = request.getParameter("idCiudad").trim();
+            Ciudad c = new Ciudad();
+            c.setIdCiudad(idCiudad);
+            response.sendRedirect("pagCiudad.jsp?mensaje="+c.eliminar());
          } catch (Exception e) {
                 response.sendRedirect("pagCiudad.jsp?mensaje="+e.getMessage());
             }

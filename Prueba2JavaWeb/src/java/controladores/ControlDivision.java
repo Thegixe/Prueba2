@@ -7,11 +7,13 @@ package controladores;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelos.Division;
 
 /**
  *
@@ -34,17 +36,53 @@ public class ControlDivision extends HttpServlet {
         try{
         String accion = request.getParameter("accion");
         switch(accion){
-            case "1": //registrar(request,response);
+            case "1": registrar(request,response);
             break;
-            case "2": //modificar(request,response);
+            case "2": modificar(request,response);
             break;
-            case "3": //eliminar(request,response);
+            case "3": eliminar(request,response);
             break;
         }
         }
         catch(Exception e){
-            response.sendRedirect("index.jsp?mensaje=Complete todos los campos");
+            response.sendRedirect("pagDivision.jsp?mensaje=Complete todos los campos");
         }
+    }
+    
+    
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException, SQLException{
+        String idDivision = request.getParameter("idDivision").trim();
+        String nombre = request.getParameter("nombre").trim();
+        if(idDivision.isEmpty()||nombre.isEmpty()){
+            response.sendRedirect("pagDivision.jsp?mensaje=Complete todos los campos");
+        }else{
+            Division d = new Division(idDivision,nombre);
+            response.sendRedirect("pagDivision.jsp?mensaje="+d.registrar());
+            
+                
+            }
+    }
+    
+    private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            String idDivision = request.getParameter("idDivision").trim();
+            String nombre = request.getParameter("nombre").trim();
+            Division d = new Division(idDivision,nombre);
+            response.sendRedirect("pagDivision.jsp?mensaje="+d.modificar());
+         } catch (Exception e) {
+                response.sendRedirect("pagDivision.jsp?mensaje="+e.getMessage());
+            }
+    }
+    
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            String idDivision = request.getParameter("idDivision").trim();
+            Division d = new Division();
+            d.setIdDivision(idDivision);
+            response.sendRedirect("pagDivision.jsp?mensaje="+d.eliminar());
+         } catch (Exception e) {
+                response.sendRedirect("pagDivision.jsp?mensaje="+e.getMessage());
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
