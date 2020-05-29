@@ -19,10 +19,13 @@
         <h1>Bienvenido <%= u.getNombre()+" "+u.getApellido() %></h1>
         
         
+        
+        
+        
+        <% if(request.getParameter("mensaje")!=null){%>
+        <%=request.getParameter("mensaje") %>
+        <%}%>
     </center>
-        
-        
-        
     </body>
     <% }else{
     response.sendRedirect("index.jsp?mensaje=acceso denegado");
