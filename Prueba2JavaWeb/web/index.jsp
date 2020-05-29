@@ -16,6 +16,7 @@
         <form action="ControlUsuario" method="post">
             
                 <table style="border: 1; ">
+                   
                     <tr>
                         <td>Usuario</td>
                         <td><input type="text" name="usuario" /></td>

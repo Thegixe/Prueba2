@@ -17,6 +17,27 @@
     <body>
     <center>
         <h1>Bienvenido <%= u.getNombre()+" "+u.getApellido() %></h1>
+        <hr>
+        <h3>Ingresar a:</h3>
+        <table border="1">
+            
+            <tr>
+                <td align="center"><p><a href="pagCiudad.jsp"><button>Ciudad</button></a></p></td>
+                <td align="center"><p><a href="pagDivision.jsp"><button>División</button></a></p></td>
+                <td align="center"><p><a href="pagPosicion.jsp"><button>Posición</button></a></p></td>
+                <td align="center"><p><a href="pagEstadio.jsp"><button>Estadio</button></a></p></td>
+            </tr>
+        </table>
+        <table border="1">
+            <tr>
+                <td align="center"><p><a href="pagEquipo.jsp"><button>Equipo</button></a></p></td>
+            </tr>
+        </table>
+        
+        
+        
+        
+        
         
         
         
