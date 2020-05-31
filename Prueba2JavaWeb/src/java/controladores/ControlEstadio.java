@@ -38,14 +38,14 @@ public class ControlEstadio extends HttpServlet {
         switch(accion){
             case "1": registrar(request,response);
             break;
-            case "2": //modificar(request,response);
+            case "2": modificar(request,response);
             break;
-            case "3": //eliminar(request,response);
+            case "3": eliminar(request,response);
             break;
         }
         }
         catch(Exception e){
-            response.sendRedirect("index.jsp?mensaje=Complete todos los campos");
+            response.sendRedirect("pagEstadio.jsp?mensaje=Complete todos los campos");
         }
     }
     
@@ -59,6 +59,28 @@ public class ControlEstadio extends HttpServlet {
                                     getString("capacidad",request));
              response.sendRedirect("pagEstadio.jsp?mensaje="+e.registrar());
         
+         } catch (Exception e) {
+                response.sendRedirect("pagEstadio.jsp?mensaje="+e.getMessage());
+            }
+    }
+    
+    private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            Ciudad c = new Ciudad();
+            Estadio e = new Estadio(getString("idEstadio",request),
+                                    getString("nombre",request),
+                                    c.obtenerCiudad(getString("idCiudad",request)),
+                                    getString("capacidad",request));
+             response.sendRedirect("pagEstadio.jsp?mensaje="+e.modificar());
+         } catch (Exception e) {
+                response.sendRedirect("intranet.jsp?mensaje="+e.getMessage());
+            }
+    }
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            Estadio e = new Estadio();
+            e.setIdEstadio(getString("idEstadio",request));
+            response.sendRedirect("pagEstadio.jsp?mensaje="+e.eliminar());
          } catch (Exception e) {
                 response.sendRedirect("pagEstadio.jsp?mensaje="+e.getMessage());
             }

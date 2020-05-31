@@ -12,6 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelos.Division;
+import modelos.Equipo;
+import modelos.Estadio;
 
 /**
  *
@@ -34,11 +37,11 @@ public class ControlEquipo extends HttpServlet {
         try{
         String accion = request.getParameter("accion");
         switch(accion){
-            case "1": //registrar(request,response);
+            case "1": registrar(request,response);
             break;
-            case "2": //modificar(request,response);
+            case "2": modificar(request,response);
             break;
-            case "3": //eliminar(request,response);
+            case "3": eliminar(request,response);
             break;
         }
         }
@@ -46,6 +49,52 @@ public class ControlEquipo extends HttpServlet {
             response.sendRedirect("index.jsp?mensaje=Complete todos los campos");
         }
     }
+    
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try{
+            Division d = new Division();
+            Estadio es = new Estadio();
+            Equipo e = new Equipo(getString("idEquipo",request),
+                                    getString("nombre",request),
+                                    getString("procedencia",request),
+                                    es.obtenerEstadio(getString("idEstadio",request)),
+                                    d.obtenerDivision(getString("idDivision",request)));
+             response.sendRedirect("pagEquipo.jsp?mensaje="+e.registrar());
+        
+         } catch (Exception e) {
+                response.sendRedirect("pagEquipo.jsp?mensaje="+e.getMessage());
+            }
+    }
+    
+    private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            Division d = new Division();
+            Estadio es = new Estadio();
+            Equipo e = new Equipo(getString("idEquipo",request),
+                                    getString("nombre",request),
+                                    getString("procedencia",request),
+                                    es.obtenerEstadio(getString("idEstadio",request)),
+                                    d.obtenerDivision(getString("idDivision",request)));
+             response.sendRedirect("pagEquipo.jsp?mensaje="+e.modificar());
+         } catch (Exception e) {
+                response.sendRedirect("intranet.jsp?mensaje="+e.getMessage());
+            }
+    }
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            Equipo e = new Equipo();
+            e.setIdEquipo(getString("idEquipo",request));
+            response.sendRedirect("pagEquipo.jsp?mensaje="+e.eliminar());
+         } catch (Exception e) {
+                response.sendRedirect("pagEquipo.jsp?mensaje="+e.getMessage());
+            }
+    }
+    
+    private String getString(String nombre,HttpServletRequest request){
+        return request.getParameter(nombre);
+    }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

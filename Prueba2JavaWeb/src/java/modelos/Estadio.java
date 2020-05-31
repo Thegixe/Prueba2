@@ -117,7 +117,7 @@ public class Estadio {
         }
         return estadios;
     }
-    public Estadio obtenerVehiculo(String idEstadio) throws SQLException, ClassNotFoundException{
+    public Estadio obtenerEstadio(String idEstadio) throws SQLException, ClassNotFoundException{
         String sentencia = "select * from estadios where id_estadio='"+idEstadio+"'";
         ResultSet rs = conexion.consultarSQL(sentencia);
         Estadio e = new Estadio();
