@@ -5,7 +5,9 @@
  */
 package modelos;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Estadio {
@@ -17,6 +19,7 @@ public class Estadio {
 
     public Estadio() throws ClassNotFoundException, SQLException {
         conexion = new Conexion();
+        ciudad = new Ciudad();
     }
 
     public Estadio(String idEstadio, String nombre, Ciudad ciudad, String capacidad) throws ClassNotFoundException, SQLException {
@@ -59,7 +62,74 @@ public class Estadio {
         this.capacidad = capacidad;
     }
     
+    public String registrar() throws SQLException{
+        if(validarEstadio()){
+            return "El estadio ya existe";
+        }else{
+        String sentencia = "insert into estadios values('"+idEstadio+"','"+nombre+"','"+ciudad.getIdCiudad()+"','"+capacidad+"')";
+        if(conexion.ejecutarSQL(sentencia)==1){
+            return "Estadio registrado";
+        }else{
+            return "No se pudo registrar el Estadio";
+        }
+        }
+    }
     
+    public String eliminar() throws SQLException{
+        if(validarEstadio()){
+            String sentencia = "delete from estadios where id_estadio = '"+idEstadio+"'";
+        if(conexion.ejecutarSQL(sentencia)==1){
+            return "Estadio eliminado";
+        }else{
+            return "No se pudo eliminar el estadio";
+        }
+        }else{
+            return "El estadio no existe";
+        }
+    }
+    public String modificar() throws SQLException{
+        if(validarEstadio()){
+            String sentencia = "update estadios set nombre = '"+nombre+"',id_ciudad = '"+ciudad.getIdCiudad()+"',"
+                    + "capacidad="+capacidad+" "
+                    + "where id_estadio = '"+idEstadio+"'";
+        if(conexion.ejecutarSQL(sentencia)==1){
+            return "Estadio modificado";
+        }else{
+            return "No se pudo modificar el estadio";
+        }
+        }else{
+            return "El estadio no existe";
+        }
+    }
+    public boolean validarEstadio() throws SQLException{
+        String sentencia = "select * from estadios where id_estadio='"+idEstadio+"'";
+        ResultSet rs = conexion.consultarSQL(sentencia);
+        return rs.next();
+    }
+    
+    public ArrayList<Estadio> obtenerEstadios() throws SQLException, ClassNotFoundException{
+        String sentencia = "select * from estadios order by id_estadio";
+        ArrayList<Estadio> estadios = new ArrayList();
+        ResultSet rs = conexion.consultarSQL(sentencia);
+        while(rs.next()){
+            estadios.add(new Estadio(rs.getString("id_estadio"),rs.getString("nombre"),
+                    ciudad.obtenerCiudad(rs.getString("id_ciudad")),rs.getString("capacidad")));
+        }
+        return estadios;
+    }
+    public Estadio obtenerVehiculo(String idEstadio) throws SQLException, ClassNotFoundException{
+        String sentencia = "select * from estadios where id_estadio='"+idEstadio+"'";
+        ResultSet rs = conexion.consultarSQL(sentencia);
+        Estadio e = new Estadio();
+        if(rs.next()){
+            e.setIdEstadio(rs.getString("id_estadio"));
+            e.setNombre(rs.getString("nombre"));
+            e.setCiudad((ciudad.obtenerCiudad(rs.getString("id_ciudad"))));
+            e.setCapacidad(rs.getString("capacidad"));
+            
+        }
+        return e;
+    }
     
     
     
