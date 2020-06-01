@@ -77,7 +77,7 @@ public class ControlEquipo extends HttpServlet {
                                     d.obtenerDivision(getString("idDivision",request)));
              response.sendRedirect("pagEquipo.jsp?mensaje="+e.modificar());
          } catch (Exception e) {
-                response.sendRedirect("intranet.jsp?mensaje="+e.getMessage());
+                response.sendRedirect("pagEquipo.jsp?mensaje="+e.getMessage());
             }
     }
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
